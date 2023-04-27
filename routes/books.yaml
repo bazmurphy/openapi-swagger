@@ -2,6 +2,7 @@
 components:
   # schemas can be defined and re-used
   schemas:
+    # schema name
     Book:
       type: object
       required:
@@ -35,13 +36,13 @@ tags:
     description: Everything related to Books
 # provide all the api paths
 paths:
-  # specify the route
+  # define the specific route
   /books:
-    # define the method
+    # define the http method
     get:
       # provide a summary
       summary: Get a list of all Books
-      # group similar requests with tags
+      # we group similar requests with tags
       tags:
         - Books
       # list the responses
@@ -52,10 +53,14 @@ paths:
           description: We receive a list of all the Books
           # if it returns a response body then define that
           content:
+            # the content type of the response body
             application/json:
               schema:
+                # an array of multiple objects
                 type: array
+                # each item conforms to the:
                 items:
+                  # use the pre-defined schema
                   $ref: "#/components/schemas/Book"
         "500":
           description: Server Error
@@ -64,11 +69,14 @@ paths:
       summary: Create a new Book
       tags:
         - Books
+      # define the request body
       requestBody:
+        # a body must be provided
         required: true
         content:
           application/json:
             schema:
+              # here with reference our pre-defined schema
               $ref: "#/components/schemas/Book"
       responses:
         "200":
@@ -86,6 +94,7 @@ paths:
       tags:
         - Books
       parameters:
+        # here we reference our pre-defined parameter
         - $ref: "#/components/parameters/BookId"
       responses:
         "200":
